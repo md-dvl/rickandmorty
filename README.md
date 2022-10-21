@@ -1,6 +1,6 @@
-# rickmorty
+# rickandmorty
 
-A new Flutter project.
+Flutter app using https://rickandmortyapi.com/
 
 ## Getting Started
 
