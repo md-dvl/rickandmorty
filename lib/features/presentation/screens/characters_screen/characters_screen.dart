@@ -22,7 +22,6 @@ class CharactersScreen extends StatefulWidget {
 class _CharactersScreenState extends State<CharactersScreen> {
   final _bloc = sl<CharacterBloc>();
   bool isGrid = false;
-  final String test = 'test';
 
   @override
   Widget build(BuildContext context) {

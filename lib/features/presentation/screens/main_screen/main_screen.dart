@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rickmorty/features/presentation/screens/detail_character_screen/detail_character_screen.dart';
 import 'package:rickmorty/features/presentation/screens/filters_screen/filters_screen.dart';
 import 'package:rickmorty/resources/resources.dart';
 import 'package:rickmorty/features/presentation/screens/characters_screen/characters_screen.dart';
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> screens = const [
     CharactersScreen(),
     FiltersScreen(),
-    SettingsEditScreen(),
+    DetailCharacterScreen(),
     SettingsScreen(),
   ];
 

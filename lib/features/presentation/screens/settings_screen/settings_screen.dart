@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rickmorty/features/presentation/bloc/user_bloc.dart/user_bloc.dart';
-
 import 'package:rickmorty/features/presentation/screens/main_screen/main_screen.dart';
 import 'package:rickmorty/features/presentation/screens/settings_edit_screen/settings_edit_screen.dart';
 import 'package:rickmorty/resources/resources.dart';
