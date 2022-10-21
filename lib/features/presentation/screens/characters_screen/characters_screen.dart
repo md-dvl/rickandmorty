@@ -104,7 +104,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Row(children: [
                           const Text(
-                            'Всего персонажей',
+                            'Всего персонажей!',
                             style: AppTextStyles.def10w500,
                           ),
                           const Spacer(),
