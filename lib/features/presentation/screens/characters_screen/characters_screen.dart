@@ -40,7 +40,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                 orElse: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                error: () => const Center(child: Text('а нету')),
+                error: () => const Center(child: Text('Error')),
                 success: ((chars) => Column(children: [
                       SizedBox(height: 54.h),
                       Container(
