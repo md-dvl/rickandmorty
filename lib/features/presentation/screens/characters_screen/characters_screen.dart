@@ -12,6 +12,9 @@ import 'package:rickmorty/theme/text_styles.dart';
 part 'widgets/character_element_widget.dart';
 part 'widgets/character_element_grid_widget.dart';
 
+double width = 0;
+double height = 0;
+
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({Key? key}) : super(key: key);
 
@@ -25,6 +28,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: BlocProvider.value(
@@ -35,30 +40,30 @@ class _CharactersScreenState extends State<CharactersScreen> {
                 orElse: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                error: () => Center(child: Text('а нету')),
+                error: () => const Center(child: Text('а нету')),
                 success: ((chars) => Column(children: [
-                      const SizedBox(height: 54),
+                      SizedBox(height: 54.h),
                       Container(
                         decoration: BoxDecoration(
                             color: AppColors.colorF2F2F2,
                             borderRadius: BorderRadius.circular(100)),
                         child: Row(
                           children: [
-                            const SizedBox(
-                              width: 15,
+                            SizedBox(
+                              width: 15.w,
                             ),
                             SizedBox(
-                              height: 24,
-                              width: 24,
+                              height: 24.h,
+                              width: 24.w,
                               child: Image.asset(
                                 AppImages.searchIcon,
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
+                            SizedBox(
+                              width: 10.w,
                             ),
                             SizedBox(
-                                width: 262,
+                                width: 262.w,
                                 child: TextField(
                                   onChanged: (text) {
                                     _bloc.add(
@@ -73,13 +78,13 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                   ),
                                 )),
                             SizedBox(
-                              height: 24,
+                              height: 24.h,
                               child: Image.asset(
                                 AppImages.lineIcon,
                               ),
                             ),
-                            const SizedBox(
-                              width: 12,
+                            SizedBox(
+                              width: 12.w,
                             ),
                             GestureDetector(
                               onTap: (() {
@@ -90,8 +95,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                             const FiltersScreen()));
                               }),
                               child: SizedBox(
-                                height: 17,
-                                width: 16,
+                                height: 17.h,
+                                width: 16.w,
                                 child: Image.asset(
                                   AppImages.filterIcon,
                                 ),
@@ -101,7 +106,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.symmetric(vertical: 20.h),
                         child: Row(children: [
                           const Text(
                             'Всего персонажей!',
@@ -114,15 +119,15 @@ class _CharactersScreenState extends State<CharactersScreen> {
                               setState(() {});
                             }),
                             child: SizedBox(
-                              width: 24,
-                              height: 24,
+                              width: 24.w,
+                              height: 24.h,
                               child: isGrid
                                   ? Image.asset(AppImages.viewGrid)
                                   : Image.asset(AppImages.view),
                             ),
                           ),
-                          const SizedBox(
-                            width: 14,
+                          SizedBox(
+                            width: 14.w,
                           )
                         ]),
                       ),
@@ -132,11 +137,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                   padding: EdgeInsets.zero,
                                   itemCount: chars.length,
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          mainAxisExtent: 200,
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          mainAxisExtent: 200.h,
                                           crossAxisCount: 2,
-                                          mainAxisSpacing: 24,
-                                          crossAxisSpacing: 16),
+                                          mainAxisSpacing: 24.h,
+                                          crossAxisSpacing: 16.w),
                                   itemBuilder: (context, index) =>
                                       _CharacterElementGridWidget(
                                         character: chars[index],
@@ -149,8 +154,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
                                     );
                                   }),
                                   separatorBuilder: ((context, index) {
-                                    return const SizedBox(
-                                      height: 24,
+                                    return SizedBox(
+                                      height: 24.h,
                                     );
                                   }),
                                   itemCount: chars.length)),
@@ -160,4 +165,9 @@ class _CharactersScreenState extends State<CharactersScreen> {
       ),
     );
   }
+}
+
+extension DSize on num {
+  double get w => this * width / 375;
+  double get h => this * height / 812;
 }
