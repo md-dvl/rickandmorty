@@ -8,37 +8,29 @@ part 'character_bloc.freezed.dart';
 
 class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
   final CharacterCase usecase;
+
+  late int maxPages;
   CharacterBloc({
     required this.usecase,
   }) : super(const CharacterState.initial()) {
     on<_getAllCharacters>(((event, emit) async {
-      emit(const CharacterState.loading());
-      final result = await usecase.getAllCharacters();
+      // emit(const CharacterState.loading());
+      final result = await usecase.getAllCharacters(
+        currentPage: event.currentPage,
+        text: event.text,
+        status: event.status,
+        gender: event.gender,
+      );
+      maxPages = result.chars?.info?.pages ?? 1;
       final chars = result.chars?.results ?? [];
-      emit(CharacterState.success(chars: chars));
-    }));
-
-    on<_getSearchedCharacters>(((event, emit) async {
-      final result = await usecase.getAllCharacters(text: event.text);
-      final chars = result.chars?.results ?? [];
-      if (chars.isEmpty) {
-        emit(const CharacterState.error());
-      }
-      emit(CharacterState.success(chars: chars));
-    }));
-
-    on<_getFilteredCharacters>(((event, emit) async {
-      final result = await usecase.getFilteredCharacters(status: event.status);
-      final chars = result.chars?.results ?? [];
-      emit(CharacterState.success(chars: chars));
+      emit(CharacterState.success(chars: chars, maxPages: maxPages));
     }));
 
     on<_setFilters>(((event, emit) {
-      usecase.setFilters(status: event.status);
-    }));
-
-    on<_getFilters>(((event, emit) {
-      usecase.getFilters();
+      usecase.setFilters(
+        status: event.status,
+        gender: event.gender,
+      );
     }));
   }
 }
@@ -47,6 +39,7 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
 class CharacterState with _$CharacterState {
   const factory CharacterState.success({
     required List<CharacterModel> chars,
+    required int maxPages,
   }) = _Success;
   const factory CharacterState.loading() = _Loading;
   const factory CharacterState.error() = _Error;
@@ -58,16 +51,12 @@ class CharacterEvent with _$CharacterEvent {
   const factory CharacterEvent.getAllCharacters({
     String? text,
     int? currentPage,
-  }) = _getAllCharacters;
-  const factory CharacterEvent.getSearchedCharacters({
-    String? text,
-  }) = _getSearchedCharacters;
-  const factory CharacterEvent.getFilteredCharacters({
     String? status,
-  }) = _getFilteredCharacters;
+    String? gender,
+  }) = _getAllCharacters;
+
   const factory CharacterEvent.setFilters({
     String? status,
+    String? gender,
   }) = _setFilters;
-
-  const factory CharacterEvent.getFilters() = _getFilters;
 }

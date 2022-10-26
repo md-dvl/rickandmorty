@@ -1,4 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer';
 
 import 'package:rickmorty/features/domain/repositories/base_repo.dart';
 
@@ -10,31 +10,27 @@ class CharacterCase {
   });
 
   String status = '';
+  String gender = '';
 
   Future<BaseCharRepoResponse> getAllCharacters({
     String? text,
     int? currentPage,
+    String? status,
+    String? gender,
   }) async {
     return await charRepo.getAllCharacters(
-        text: text, currentPage: currentPage);
-  }
-
-  Future<BaseCharRepoResponse> getFilteredCharacters({
-    String? status,
-    int? currentPage,
-  }) async {
-    return await charRepo.getFilteredCharacters(
-      status: status,
+      text: text,
+      currentPage: currentPage,
+      status: this.status,
+      gender: this.gender,
     );
   }
 
   void setFilters({
     String? status,
+    String? gender,
   }) {
     this.status = status ?? '';
-  }
-
-  String getFilters() {
-    return status;
+    this.gender = gender ?? '';
   }
 }

@@ -5,10 +5,8 @@ abstract class BaseCharRepo {
   Future<BaseCharRepoResponse> getAllCharacters({
     String? text,
     int? currentPage,
-  });
-
-  Future<BaseCharRepoResponse> getFilteredCharacters({
     String? status,
+    String? gender,
   });
 }
 

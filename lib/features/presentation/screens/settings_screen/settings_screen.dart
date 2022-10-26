@@ -1,12 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rickmorty/features/presentation/bloc/user_bloc.dart/user_bloc.dart';
+import 'package:rickmorty/core/extension_context.dart';
+
+import 'package:rickmorty/features/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:rickmorty/features/presentation/screens/main_screen/main_screen.dart';
 import 'package:rickmorty/features/presentation/screens/settings_edit_screen/settings_edit_screen.dart';
+import 'package:rickmorty/features/presentation/widgets/custom_divider.dart';
 import 'package:rickmorty/resources/resources.dart';
 import 'package:rickmorty/service_locator.dart';
-import 'package:rickmorty/theme/colors.dart';
 import 'package:rickmorty/theme/text_styles.dart';
+import 'package:rickmorty/theme/theme_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -17,23 +22,30 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final _bloc = sl<UserBloc>();
+  bool isDark = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.colorWhite,
+      backgroundColor: context.colors.bg2,
       appBar: AppBar(
-        backgroundColor: AppColors.colorWhite,
+        backgroundColor: context.colors.bg2,
         elevation: 0,
         titleSpacing: 0,
-        title: const Text('Настройки', style: AppTextStyles.def20w500),
+        title: Text('Настройки',
+            style: AppTextStyles.def20w500.copyWith(
+              color: context.colors.baseColor,
+            )),
         leading: IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             icon: SizedBox(
               height: 24,
               width: 24,
-              child: Image.asset(AppImages.arrowB),
+              child: Image.asset(
+                AppImages.arrowB,
+                color: context.colors.baseColor,
+              ),
             ),
             onPressed: (() {
               Navigator.pushAndRemoveUntil(
@@ -71,12 +83,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               children: [
                                 Text(
                                     '${user.name} ${user.surname} ${user.patronymic}',
-                                    style: AppTextStyles.def16w400Black),
+                                    style:
+                                        AppTextStyles.def16w400Black.copyWith(
+                                      color: context.colors.baseColor,
+                                    )),
                                 const SizedBox(
                                   height: 4,
                                 ),
-                                const Text('Rick',
-                                    style: AppTextStyles.def14w400),
+                                Text(user.login,
+                                    style: AppTextStyles.def14w400.copyWith(
+                                      color: context.colors.greyCommonText,
+                                    )),
                               ],
                             )
                           ],
@@ -93,15 +110,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: TextButton(
                 style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                        side: const BorderSide(
+                        side: BorderSide(
                           width: 1,
-                          color: AppColors.color22A2BD,
+                          color: context.colors.checkbox,
                         ),
                         borderRadius: BorderRadius.circular(12))),
                 child: Text(
                   'Редактировать',
                   style: AppTextStyles.def16w400.copyWith(
-                    color: AppColors.color22A2BD,
+                    color: context.colors.checkbox,
                     letterSpacing: 0.15,
                   ),
                 ),
@@ -114,10 +131,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
-          customDivider(),
+          const CustomDivider(vertPadding: 24, thickness: 1),
           Text(
             'Внешний вид'.toUpperCase(),
-            style: AppTextStyles.def10w500,
+            style: AppTextStyles.def10w500.copyWith(
+              color: context.colors.greyCommonText,
+            ),
           ),
           const SizedBox(
             height: 18,
@@ -125,20 +144,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Row(
             children: [
               SizedBox(
-                  height: 36, width: 36, child: Image.asset(AppImages.theme)),
+                  height: 36,
+                  width: 36,
+                  child: Image.asset(
+                    AppImages.theme,
+                    color: context.colors.baseColor,
+                  )),
               const SizedBox(
                 width: 16,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Темная тема',
-                    style: AppTextStyles.def16w400Black,
+                    style: AppTextStyles.def16w400Black.copyWith(
+                      color: context.colors.baseColor,
+                    ),
                   ),
                   Text(
-                    'Включена',
-                    style: AppTextStyles.def14w400,
+                    isDark ? 'Включена' : 'Выключена',
+                    style: AppTextStyles.def14w400.copyWith(
+                      color: context.colors.greyCommonText,
+                    ),
                   )
                 ],
               ),
@@ -149,13 +177,71 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       context: context,
                       builder: (context) {
                         return SimpleDialog(
-                          title: const Text('Темная тема'),
+                          backgroundColor: context.colors.alertDialog,
+                          title: Text(
+                            'Темная тема',
+                            style: AppTextStyles.def20w500.copyWith(
+                              color: context.colors.baseColor,
+                            ),
+                          ),
                           children: [
                             SimpleDialogOption(
                               child: Row(
-                                children: const [
-                                  Icon(Icons.data_saver_off_rounded),
-                                  Text('Включена'),
+                                children: [
+                                  Checkbox(
+                                    activeColor: context.colors.checkbox,
+                                    side: BorderSide(
+                                      color: context.colors.greyCommonText,
+                                      width: 2,
+                                    ),
+                                    value: isDark,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (!isDark) {
+                                          isDark = !isDark;
+                                          context
+                                              .read<ThemeProvider>()
+                                              .changeTheme(ThemeModes.dark);
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    'Включена',
+                                    style: AppTextStyles.def16w400.copyWith(
+                                      color: context.colors.baseColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SimpleDialogOption(
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    activeColor: context.colors.checkbox,
+                                    side: BorderSide(
+                                      color: context.colors.greyCommonText,
+                                      width: 2,
+                                    ),
+                                    value: !isDark,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (isDark) {
+                                          isDark = !isDark;
+                                          context
+                                              .read<ThemeProvider>()
+                                              .changeTheme(ThemeModes.light);
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    'Выключена',
+                                    style: AppTextStyles.def16w400.copyWith(
+                                      color: context.colors.baseColor,
+                                    ),
+                                  ),
                                 ],
                               ),
                             )
@@ -168,38 +254,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   width: 24,
                   child: Image.asset(
                     AppImages.arrowF,
+                    color: context.colors.baseColor,
                   ),
                 ),
               )
             ],
           ),
-          customDivider(),
-          Text('О приложении'.toUpperCase(), style: AppTextStyles.def10w500),
+          const CustomDivider(vertPadding: 24, thickness: 1),
+          Text('О приложении'.toUpperCase(),
+              style: AppTextStyles.def10w500.copyWith(
+                color: context.colors.greyCommonText,
+              )),
           const SizedBox(
             height: 18,
           ),
-          const Text(
+          Text(
             'Зигерионцы помещают Джерри и Рика в симуляцию, чтобы узнать секрет изготовления концен-трирован- ной темной материи.',
-            style: AppTextStyles.def13w400,
+            style: AppTextStyles.def13w400.copyWith(
+              color: context.colors.baseColor,
+            ),
           ),
-          customDivider(),
+          const CustomDivider(vertPadding: 24, thickness: 1),
           Text('Версия приложения'.toUpperCase(),
-              style: AppTextStyles.def10w500),
+              style: AppTextStyles.def10w500.copyWith(
+                color: context.colors.greyCommonText,
+              )),
           const SizedBox(
             height: 18,
           ),
-          const Text('Rick & Morty v1.0.0', style: AppTextStyles.def13w400)
+          Text('Rick & Morty v1.0.0',
+              style: AppTextStyles.def13w400.copyWith(
+                color: context.colors.baseColor,
+              ))
         ]),
-      ),
-    );
-  }
-
-  Padding customDivider() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 24.0),
-      child: Divider(
-        color: AppColors.colorF2F2F2,
-        thickness: 1,
       ),
     );
   }

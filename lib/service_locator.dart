@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rickmorty/features/data/network_data/character_repo.dart';
+import 'package:rickmorty/features/data/network_data/imp_character_repo.dart';
 import 'package:rickmorty/features/data/network_data/dio_settings.dart';
 import 'package:rickmorty/features/domain/repositories/base_repo.dart';
 import 'package:rickmorty/features/domain/usecases/character_usecase.dart';
 import 'package:rickmorty/features/domain/usecases/user_usecase.dart';
-import 'package:rickmorty/features/presentation/bloc/character_bloc.dart';
-import 'package:rickmorty/features/presentation/bloc/user_bloc.dart/user_bloc.dart';
+import 'package:rickmorty/features/presentation/bloc/character_bloc/character_bloc.dart';
+import 'package:rickmorty/features/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;

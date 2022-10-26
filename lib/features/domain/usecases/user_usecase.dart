@@ -18,11 +18,13 @@ class UserCase {
     final String name = prefs.getString('name') ?? 'Oleg';
     final String surname = prefs.getString('surname') ?? 'Belotserkovsky';
     final String patronymic = prefs.getString('patronymic') ?? '';
+    final String login = prefs.getString('login') ?? 'Rick';
     return UserModel(
       name: name,
       surname: surname,
       avatar: avatar,
       patronymic: patronymic,
+      login: login,
     );
   }
 
@@ -31,6 +33,7 @@ class UserCase {
     String? surname,
     String? patronymic,
     String? avatar,
+    String? login,
   }) {
     if (avatar != null) {
       prefs.setString('avatar', avatar);
@@ -43,6 +46,9 @@ class UserCase {
     }
     if (patronymic != null) {
       prefs.setString('patronymic', patronymic);
+    }
+    if (login != null) {
+      prefs.setString('login', login);
     }
   }
 }

@@ -5,10 +5,12 @@ class UserModel {
   final String surname;
   final String? patronymic;
   final ImageProvider avatar;
+  final String login;
   UserModel({
     required this.name,
     required this.surname,
     this.patronymic,
     required this.avatar,
+    required this.login,
   });
 }

@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CharacterState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<CharacterModel> chars) success,
+    required TResult Function(List<CharacterModel> chars, int maxPages) success,
     required TResult Function() loading,
     required TResult Function() error,
     required TResult Function() initial,
@@ -26,7 +26,7 @@ mixin _$CharacterState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<CharacterModel> chars)? success,
+    TResult? Function(List<CharacterModel> chars, int maxPages)? success,
     TResult? Function()? loading,
     TResult? Function()? error,
     TResult? Function()? initial,
@@ -34,7 +34,7 @@ mixin _$CharacterState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<CharacterModel> chars)? success,
+    TResult Function(List<CharacterModel> chars, int maxPages)? success,
     TResult Function()? loading,
     TResult Function()? error,
     TResult Function()? initial,
@@ -92,7 +92,7 @@ abstract class _$$_SuccessCopyWith<$Res> {
           _$_Success value, $Res Function(_$_Success) then) =
       __$$_SuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<CharacterModel> chars});
+  $Res call({List<CharacterModel> chars, int maxPages});
 }
 
 /// @nodoc
@@ -106,12 +106,17 @@ class __$$_SuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object? chars = null,
+    Object? maxPages = null,
   }) {
     return _then(_$_Success(
       chars: null == chars
           ? _value._chars
           : chars // ignore: cast_nullable_to_non_nullable
               as List<CharacterModel>,
+      maxPages: null == maxPages
+          ? _value.maxPages
+          : maxPages // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -119,7 +124,8 @@ class __$$_SuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Success implements _Success {
-  const _$_Success({required final List<CharacterModel> chars})
+  const _$_Success(
+      {required final List<CharacterModel> chars, required this.maxPages})
       : _chars = chars;
 
   final List<CharacterModel> _chars;
@@ -130,8 +136,11 @@ class _$_Success implements _Success {
   }
 
   @override
+  final int maxPages;
+
+  @override
   String toString() {
-    return 'CharacterState.success(chars: $chars)';
+    return 'CharacterState.success(chars: $chars, maxPages: $maxPages)';
   }
 
   @override
@@ -139,12 +148,14 @@ class _$_Success implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Success &&
-            const DeepCollectionEquality().equals(other._chars, _chars));
+            const DeepCollectionEquality().equals(other._chars, _chars) &&
+            (identical(other.maxPages, maxPages) ||
+                other.maxPages == maxPages));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_chars));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_chars), maxPages);
 
   @JsonKey(ignore: true)
   @override
@@ -155,36 +166,36 @@ class _$_Success implements _Success {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<CharacterModel> chars) success,
+    required TResult Function(List<CharacterModel> chars, int maxPages) success,
     required TResult Function() loading,
     required TResult Function() error,
     required TResult Function() initial,
   }) {
-    return success(chars);
+    return success(chars, maxPages);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<CharacterModel> chars)? success,
+    TResult? Function(List<CharacterModel> chars, int maxPages)? success,
     TResult? Function()? loading,
     TResult? Function()? error,
     TResult? Function()? initial,
   }) {
-    return success?.call(chars);
+    return success?.call(chars, maxPages);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<CharacterModel> chars)? success,
+    TResult Function(List<CharacterModel> chars, int maxPages)? success,
     TResult Function()? loading,
     TResult Function()? error,
     TResult Function()? initial,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(chars);
+      return success(chars, maxPages);
     }
     return orElse();
   }
@@ -228,10 +239,12 @@ class _$_Success implements _Success {
 }
 
 abstract class _Success implements CharacterState {
-  const factory _Success({required final List<CharacterModel> chars}) =
-      _$_Success;
+  const factory _Success(
+      {required final List<CharacterModel> chars,
+      required final int maxPages}) = _$_Success;
 
   List<CharacterModel> get chars;
+  int get maxPages;
   @JsonKey(ignore: true)
   _$$_SuccessCopyWith<_$_Success> get copyWith =>
       throw _privateConstructorUsedError;
@@ -274,7 +287,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<CharacterModel> chars) success,
+    required TResult Function(List<CharacterModel> chars, int maxPages) success,
     required TResult Function() loading,
     required TResult Function() error,
     required TResult Function() initial,
@@ -285,7 +298,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<CharacterModel> chars)? success,
+    TResult? Function(List<CharacterModel> chars, int maxPages)? success,
     TResult? Function()? loading,
     TResult? Function()? error,
     TResult? Function()? initial,
@@ -296,7 +309,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<CharacterModel> chars)? success,
+    TResult Function(List<CharacterModel> chars, int maxPages)? success,
     TResult Function()? loading,
     TResult Function()? error,
     TResult Function()? initial,
@@ -386,7 +399,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<CharacterModel> chars) success,
+    required TResult Function(List<CharacterModel> chars, int maxPages) success,
     required TResult Function() loading,
     required TResult Function() error,
     required TResult Function() initial,
@@ -397,7 +410,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<CharacterModel> chars)? success,
+    TResult? Function(List<CharacterModel> chars, int maxPages)? success,
     TResult? Function()? loading,
     TResult? Function()? error,
     TResult? Function()? initial,
@@ -408,7 +421,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<CharacterModel> chars)? success,
+    TResult Function(List<CharacterModel> chars, int maxPages)? success,
     TResult Function()? loading,
     TResult Function()? error,
     TResult Function()? initial,
@@ -499,7 +512,7 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<CharacterModel> chars) success,
+    required TResult Function(List<CharacterModel> chars, int maxPages) success,
     required TResult Function() loading,
     required TResult Function() error,
     required TResult Function() initial,
@@ -510,7 +523,7 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<CharacterModel> chars)? success,
+    TResult? Function(List<CharacterModel> chars, int maxPages)? success,
     TResult? Function()? loading,
     TResult? Function()? error,
     TResult? Function()? initial,
@@ -521,7 +534,7 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<CharacterModel> chars)? success,
+    TResult Function(List<CharacterModel> chars, int maxPages)? success,
     TResult Function()? loading,
     TResult Function()? error,
     TResult Function()? initial,
@@ -577,63 +590,55 @@ abstract class _Initial implements CharacterState {
 
 /// @nodoc
 mixin _$CharacterEvent {
+  String? get status => throw _privateConstructorUsedError;
+  String? get gender => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? text, int? currentPage) getAllCharacters,
-    required TResult Function(String? text) getSearchedCharacters,
-    required TResult Function(String? status) getFilteredCharacters,
-    required TResult Function(String? status) setFilters,
-    required TResult Function() getFilters,
+    required TResult Function(
+            String? text, int? currentPage, String? status, String? gender)
+        getAllCharacters,
+    required TResult Function(String? status, String? gender) setFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? text, int? currentPage)? getAllCharacters,
-    TResult? Function(String? text)? getSearchedCharacters,
-    TResult? Function(String? status)? getFilteredCharacters,
-    TResult? Function(String? status)? setFilters,
-    TResult? Function()? getFilters,
+    TResult? Function(
+            String? text, int? currentPage, String? status, String? gender)?
+        getAllCharacters,
+    TResult? Function(String? status, String? gender)? setFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? text, int? currentPage)? getAllCharacters,
-    TResult Function(String? text)? getSearchedCharacters,
-    TResult Function(String? status)? getFilteredCharacters,
-    TResult Function(String? status)? setFilters,
-    TResult Function()? getFilters,
+    TResult Function(
+            String? text, int? currentPage, String? status, String? gender)?
+        getAllCharacters,
+    TResult Function(String? status, String? gender)? setFilters,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_getAllCharacters value) getAllCharacters,
-    required TResult Function(_getSearchedCharacters value)
-        getSearchedCharacters,
-    required TResult Function(_getFilteredCharacters value)
-        getFilteredCharacters,
     required TResult Function(_setFilters value) setFilters,
-    required TResult Function(_getFilters value) getFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_getAllCharacters value)? getAllCharacters,
-    TResult? Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult? Function(_getFilteredCharacters value)? getFilteredCharacters,
     TResult? Function(_setFilters value)? setFilters,
-    TResult? Function(_getFilters value)? getFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_getAllCharacters value)? getAllCharacters,
-    TResult Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult Function(_getFilteredCharacters value)? getFilteredCharacters,
     TResult Function(_setFilters value)? setFilters,
-    TResult Function(_getFilters value)? getFilters,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CharacterEventCopyWith<CharacterEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -642,6 +647,8 @@ abstract class $CharacterEventCopyWith<$Res> {
   factory $CharacterEventCopyWith(
           CharacterEvent value, $Res Function(CharacterEvent) then) =
       _$CharacterEventCopyWithImpl<$Res, CharacterEvent>;
+  @useResult
+  $Res call({String? status, String? gender});
 }
 
 /// @nodoc
@@ -653,15 +660,35 @@ class _$CharacterEventCopyWithImpl<$Res, $Val extends CharacterEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? gender = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_getAllCharactersCopyWith<$Res> {
+abstract class _$$_getAllCharactersCopyWith<$Res>
+    implements $CharacterEventCopyWith<$Res> {
   factory _$$_getAllCharactersCopyWith(
           _$_getAllCharacters value, $Res Function(_$_getAllCharacters) then) =
       __$$_getAllCharactersCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String? text, int? currentPage});
+  $Res call({String? text, int? currentPage, String? status, String? gender});
 }
 
 /// @nodoc
@@ -677,6 +704,8 @@ class __$$_getAllCharactersCopyWithImpl<$Res>
   $Res call({
     Object? text = freezed,
     Object? currentPage = freezed,
+    Object? status = freezed,
+    Object? gender = freezed,
   }) {
     return _then(_$_getAllCharacters(
       text: freezed == text
@@ -687,6 +716,14 @@ class __$$_getAllCharactersCopyWithImpl<$Res>
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -694,16 +731,21 @@ class __$$_getAllCharactersCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_getAllCharacters implements _getAllCharacters {
-  const _$_getAllCharacters({this.text, this.currentPage});
+  const _$_getAllCharacters(
+      {this.text, this.currentPage, this.status, this.gender});
 
   @override
   final String? text;
   @override
   final int? currentPage;
+  @override
+  final String? status;
+  @override
+  final String? gender;
 
   @override
   String toString() {
-    return 'CharacterEvent.getAllCharacters(text: $text, currentPage: $currentPage)';
+    return 'CharacterEvent.getAllCharacters(text: $text, currentPage: $currentPage, status: $status, gender: $gender)';
   }
 
   @override
@@ -713,11 +755,14 @@ class _$_getAllCharacters implements _getAllCharacters {
             other is _$_getAllCharacters &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage));
+                other.currentPage == currentPage) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.gender, gender) || other.gender == gender));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text, currentPage);
+  int get hashCode =>
+      Object.hash(runtimeType, text, currentPage, status, gender);
 
   @JsonKey(ignore: true)
   @override
@@ -728,39 +773,36 @@ class _$_getAllCharacters implements _getAllCharacters {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? text, int? currentPage) getAllCharacters,
-    required TResult Function(String? text) getSearchedCharacters,
-    required TResult Function(String? status) getFilteredCharacters,
-    required TResult Function(String? status) setFilters,
-    required TResult Function() getFilters,
+    required TResult Function(
+            String? text, int? currentPage, String? status, String? gender)
+        getAllCharacters,
+    required TResult Function(String? status, String? gender) setFilters,
   }) {
-    return getAllCharacters(text, currentPage);
+    return getAllCharacters(text, currentPage, status, gender);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? text, int? currentPage)? getAllCharacters,
-    TResult? Function(String? text)? getSearchedCharacters,
-    TResult? Function(String? status)? getFilteredCharacters,
-    TResult? Function(String? status)? setFilters,
-    TResult? Function()? getFilters,
+    TResult? Function(
+            String? text, int? currentPage, String? status, String? gender)?
+        getAllCharacters,
+    TResult? Function(String? status, String? gender)? setFilters,
   }) {
-    return getAllCharacters?.call(text, currentPage);
+    return getAllCharacters?.call(text, currentPage, status, gender);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? text, int? currentPage)? getAllCharacters,
-    TResult Function(String? text)? getSearchedCharacters,
-    TResult Function(String? status)? getFilteredCharacters,
-    TResult Function(String? status)? setFilters,
-    TResult Function()? getFilters,
+    TResult Function(
+            String? text, int? currentPage, String? status, String? gender)?
+        getAllCharacters,
+    TResult Function(String? status, String? gender)? setFilters,
     required TResult orElse(),
   }) {
     if (getAllCharacters != null) {
-      return getAllCharacters(text, currentPage);
+      return getAllCharacters(text, currentPage, status, gender);
     }
     return orElse();
   }
@@ -769,12 +811,7 @@ class _$_getAllCharacters implements _getAllCharacters {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_getAllCharacters value) getAllCharacters,
-    required TResult Function(_getSearchedCharacters value)
-        getSearchedCharacters,
-    required TResult Function(_getFilteredCharacters value)
-        getFilteredCharacters,
     required TResult Function(_setFilters value) setFilters,
-    required TResult Function(_getFilters value) getFilters,
   }) {
     return getAllCharacters(this);
   }
@@ -783,10 +820,7 @@ class _$_getAllCharacters implements _getAllCharacters {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_getAllCharacters value)? getAllCharacters,
-    TResult? Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult? Function(_getFilteredCharacters value)? getFilteredCharacters,
     TResult? Function(_setFilters value)? setFilters,
-    TResult? Function(_getFilters value)? getFilters,
   }) {
     return getAllCharacters?.call(this);
   }
@@ -795,10 +829,7 @@ class _$_getAllCharacters implements _getAllCharacters {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_getAllCharacters value)? getAllCharacters,
-    TResult Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult Function(_getFilteredCharacters value)? getFilteredCharacters,
     TResult Function(_setFilters value)? setFilters,
-    TResult Function(_getFilters value)? getFilters,
     required TResult orElse(),
   }) {
     if (getAllCharacters != null) {
@@ -810,332 +841,32 @@ class _$_getAllCharacters implements _getAllCharacters {
 
 abstract class _getAllCharacters implements CharacterEvent {
   const factory _getAllCharacters(
-      {final String? text, final int? currentPage}) = _$_getAllCharacters;
+      {final String? text,
+      final int? currentPage,
+      final String? status,
+      final String? gender}) = _$_getAllCharacters;
 
   String? get text;
   int? get currentPage;
+  @override
+  String? get status;
+  @override
+  String? get gender;
+  @override
   @JsonKey(ignore: true)
   _$$_getAllCharactersCopyWith<_$_getAllCharacters> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_getSearchedCharactersCopyWith<$Res> {
-  factory _$$_getSearchedCharactersCopyWith(_$_getSearchedCharacters value,
-          $Res Function(_$_getSearchedCharacters) then) =
-      __$$_getSearchedCharactersCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? text});
-}
-
-/// @nodoc
-class __$$_getSearchedCharactersCopyWithImpl<$Res>
-    extends _$CharacterEventCopyWithImpl<$Res, _$_getSearchedCharacters>
-    implements _$$_getSearchedCharactersCopyWith<$Res> {
-  __$$_getSearchedCharactersCopyWithImpl(_$_getSearchedCharacters _value,
-      $Res Function(_$_getSearchedCharacters) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? text = freezed,
-  }) {
-    return _then(_$_getSearchedCharacters(
-      text: freezed == text
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_getSearchedCharacters implements _getSearchedCharacters {
-  const _$_getSearchedCharacters({this.text});
-
-  @override
-  final String? text;
-
-  @override
-  String toString() {
-    return 'CharacterEvent.getSearchedCharacters(text: $text)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_getSearchedCharacters &&
-            (identical(other.text, text) || other.text == text));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, text);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_getSearchedCharactersCopyWith<_$_getSearchedCharacters> get copyWith =>
-      __$$_getSearchedCharactersCopyWithImpl<_$_getSearchedCharacters>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String? text, int? currentPage) getAllCharacters,
-    required TResult Function(String? text) getSearchedCharacters,
-    required TResult Function(String? status) getFilteredCharacters,
-    required TResult Function(String? status) setFilters,
-    required TResult Function() getFilters,
-  }) {
-    return getSearchedCharacters(text);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? text, int? currentPage)? getAllCharacters,
-    TResult? Function(String? text)? getSearchedCharacters,
-    TResult? Function(String? status)? getFilteredCharacters,
-    TResult? Function(String? status)? setFilters,
-    TResult? Function()? getFilters,
-  }) {
-    return getSearchedCharacters?.call(text);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? text, int? currentPage)? getAllCharacters,
-    TResult Function(String? text)? getSearchedCharacters,
-    TResult Function(String? status)? getFilteredCharacters,
-    TResult Function(String? status)? setFilters,
-    TResult Function()? getFilters,
-    required TResult orElse(),
-  }) {
-    if (getSearchedCharacters != null) {
-      return getSearchedCharacters(text);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_getAllCharacters value) getAllCharacters,
-    required TResult Function(_getSearchedCharacters value)
-        getSearchedCharacters,
-    required TResult Function(_getFilteredCharacters value)
-        getFilteredCharacters,
-    required TResult Function(_setFilters value) setFilters,
-    required TResult Function(_getFilters value) getFilters,
-  }) {
-    return getSearchedCharacters(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_getAllCharacters value)? getAllCharacters,
-    TResult? Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult? Function(_getFilteredCharacters value)? getFilteredCharacters,
-    TResult? Function(_setFilters value)? setFilters,
-    TResult? Function(_getFilters value)? getFilters,
-  }) {
-    return getSearchedCharacters?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_getAllCharacters value)? getAllCharacters,
-    TResult Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult Function(_getFilteredCharacters value)? getFilteredCharacters,
-    TResult Function(_setFilters value)? setFilters,
-    TResult Function(_getFilters value)? getFilters,
-    required TResult orElse(),
-  }) {
-    if (getSearchedCharacters != null) {
-      return getSearchedCharacters(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _getSearchedCharacters implements CharacterEvent {
-  const factory _getSearchedCharacters({final String? text}) =
-      _$_getSearchedCharacters;
-
-  String? get text;
-  @JsonKey(ignore: true)
-  _$$_getSearchedCharactersCopyWith<_$_getSearchedCharacters> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_getFilteredCharactersCopyWith<$Res> {
-  factory _$$_getFilteredCharactersCopyWith(_$_getFilteredCharacters value,
-          $Res Function(_$_getFilteredCharacters) then) =
-      __$$_getFilteredCharactersCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? status});
-}
-
-/// @nodoc
-class __$$_getFilteredCharactersCopyWithImpl<$Res>
-    extends _$CharacterEventCopyWithImpl<$Res, _$_getFilteredCharacters>
-    implements _$$_getFilteredCharactersCopyWith<$Res> {
-  __$$_getFilteredCharactersCopyWithImpl(_$_getFilteredCharacters _value,
-      $Res Function(_$_getFilteredCharacters) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-  }) {
-    return _then(_$_getFilteredCharacters(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_getFilteredCharacters implements _getFilteredCharacters {
-  const _$_getFilteredCharacters({this.status});
-
-  @override
-  final String? status;
-
-  @override
-  String toString() {
-    return 'CharacterEvent.getFilteredCharacters(status: $status)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_getFilteredCharacters &&
-            (identical(other.status, status) || other.status == status));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, status);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_getFilteredCharactersCopyWith<_$_getFilteredCharacters> get copyWith =>
-      __$$_getFilteredCharactersCopyWithImpl<_$_getFilteredCharacters>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String? text, int? currentPage) getAllCharacters,
-    required TResult Function(String? text) getSearchedCharacters,
-    required TResult Function(String? status) getFilteredCharacters,
-    required TResult Function(String? status) setFilters,
-    required TResult Function() getFilters,
-  }) {
-    return getFilteredCharacters(status);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? text, int? currentPage)? getAllCharacters,
-    TResult? Function(String? text)? getSearchedCharacters,
-    TResult? Function(String? status)? getFilteredCharacters,
-    TResult? Function(String? status)? setFilters,
-    TResult? Function()? getFilters,
-  }) {
-    return getFilteredCharacters?.call(status);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? text, int? currentPage)? getAllCharacters,
-    TResult Function(String? text)? getSearchedCharacters,
-    TResult Function(String? status)? getFilteredCharacters,
-    TResult Function(String? status)? setFilters,
-    TResult Function()? getFilters,
-    required TResult orElse(),
-  }) {
-    if (getFilteredCharacters != null) {
-      return getFilteredCharacters(status);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_getAllCharacters value) getAllCharacters,
-    required TResult Function(_getSearchedCharacters value)
-        getSearchedCharacters,
-    required TResult Function(_getFilteredCharacters value)
-        getFilteredCharacters,
-    required TResult Function(_setFilters value) setFilters,
-    required TResult Function(_getFilters value) getFilters,
-  }) {
-    return getFilteredCharacters(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_getAllCharacters value)? getAllCharacters,
-    TResult? Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult? Function(_getFilteredCharacters value)? getFilteredCharacters,
-    TResult? Function(_setFilters value)? setFilters,
-    TResult? Function(_getFilters value)? getFilters,
-  }) {
-    return getFilteredCharacters?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_getAllCharacters value)? getAllCharacters,
-    TResult Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult Function(_getFilteredCharacters value)? getFilteredCharacters,
-    TResult Function(_setFilters value)? setFilters,
-    TResult Function(_getFilters value)? getFilters,
-    required TResult orElse(),
-  }) {
-    if (getFilteredCharacters != null) {
-      return getFilteredCharacters(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _getFilteredCharacters implements CharacterEvent {
-  const factory _getFilteredCharacters({final String? status}) =
-      _$_getFilteredCharacters;
-
-  String? get status;
-  @JsonKey(ignore: true)
-  _$$_getFilteredCharactersCopyWith<_$_getFilteredCharacters> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_setFiltersCopyWith<$Res> {
+abstract class _$$_setFiltersCopyWith<$Res>
+    implements $CharacterEventCopyWith<$Res> {
   factory _$$_setFiltersCopyWith(
           _$_setFilters value, $Res Function(_$_setFilters) then) =
       __$$_setFiltersCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String? status});
+  $Res call({String? status, String? gender});
 }
 
 /// @nodoc
@@ -1150,11 +881,16 @@ class __$$_setFiltersCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = freezed,
+    Object? gender = freezed,
   }) {
     return _then(_$_setFilters(
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -1163,14 +899,16 @@ class __$$_setFiltersCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_setFilters implements _setFilters {
-  const _$_setFilters({this.status});
+  const _$_setFilters({this.status, this.gender});
 
   @override
   final String? status;
+  @override
+  final String? gender;
 
   @override
   String toString() {
-    return 'CharacterEvent.setFilters(status: $status)';
+    return 'CharacterEvent.setFilters(status: $status, gender: $gender)';
   }
 
   @override
@@ -1178,11 +916,12 @@ class _$_setFilters implements _setFilters {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_setFilters &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.gender, gender) || other.gender == gender));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(runtimeType, status, gender);
 
   @JsonKey(ignore: true)
   @override
@@ -1193,39 +932,36 @@ class _$_setFilters implements _setFilters {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? text, int? currentPage) getAllCharacters,
-    required TResult Function(String? text) getSearchedCharacters,
-    required TResult Function(String? status) getFilteredCharacters,
-    required TResult Function(String? status) setFilters,
-    required TResult Function() getFilters,
+    required TResult Function(
+            String? text, int? currentPage, String? status, String? gender)
+        getAllCharacters,
+    required TResult Function(String? status, String? gender) setFilters,
   }) {
-    return setFilters(status);
+    return setFilters(status, gender);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? text, int? currentPage)? getAllCharacters,
-    TResult? Function(String? text)? getSearchedCharacters,
-    TResult? Function(String? status)? getFilteredCharacters,
-    TResult? Function(String? status)? setFilters,
-    TResult? Function()? getFilters,
+    TResult? Function(
+            String? text, int? currentPage, String? status, String? gender)?
+        getAllCharacters,
+    TResult? Function(String? status, String? gender)? setFilters,
   }) {
-    return setFilters?.call(status);
+    return setFilters?.call(status, gender);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? text, int? currentPage)? getAllCharacters,
-    TResult Function(String? text)? getSearchedCharacters,
-    TResult Function(String? status)? getFilteredCharacters,
-    TResult Function(String? status)? setFilters,
-    TResult Function()? getFilters,
+    TResult Function(
+            String? text, int? currentPage, String? status, String? gender)?
+        getAllCharacters,
+    TResult Function(String? status, String? gender)? setFilters,
     required TResult orElse(),
   }) {
     if (setFilters != null) {
-      return setFilters(status);
+      return setFilters(status, gender);
     }
     return orElse();
   }
@@ -1234,12 +970,7 @@ class _$_setFilters implements _setFilters {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_getAllCharacters value) getAllCharacters,
-    required TResult Function(_getSearchedCharacters value)
-        getSearchedCharacters,
-    required TResult Function(_getFilteredCharacters value)
-        getFilteredCharacters,
     required TResult Function(_setFilters value) setFilters,
-    required TResult Function(_getFilters value) getFilters,
   }) {
     return setFilters(this);
   }
@@ -1248,10 +979,7 @@ class _$_setFilters implements _setFilters {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_getAllCharacters value)? getAllCharacters,
-    TResult? Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult? Function(_getFilteredCharacters value)? getFilteredCharacters,
     TResult? Function(_setFilters value)? setFilters,
-    TResult? Function(_getFilters value)? getFilters,
   }) {
     return setFilters?.call(this);
   }
@@ -1260,10 +988,7 @@ class _$_setFilters implements _setFilters {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_getAllCharacters value)? getAllCharacters,
-    TResult Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult Function(_getFilteredCharacters value)? getFilteredCharacters,
     TResult Function(_setFilters value)? setFilters,
-    TResult Function(_getFilters value)? getFilters,
     required TResult orElse(),
   }) {
     if (setFilters != null) {
@@ -1274,132 +999,15 @@ class _$_setFilters implements _setFilters {
 }
 
 abstract class _setFilters implements CharacterEvent {
-  const factory _setFilters({final String? status}) = _$_setFilters;
+  const factory _setFilters({final String? status, final String? gender}) =
+      _$_setFilters;
 
+  @override
   String? get status;
+  @override
+  String? get gender;
+  @override
   @JsonKey(ignore: true)
   _$$_setFiltersCopyWith<_$_setFilters> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_getFiltersCopyWith<$Res> {
-  factory _$$_getFiltersCopyWith(
-          _$_getFilters value, $Res Function(_$_getFilters) then) =
-      __$$_getFiltersCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_getFiltersCopyWithImpl<$Res>
-    extends _$CharacterEventCopyWithImpl<$Res, _$_getFilters>
-    implements _$$_getFiltersCopyWith<$Res> {
-  __$$_getFiltersCopyWithImpl(
-      _$_getFilters _value, $Res Function(_$_getFilters) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_getFilters implements _getFilters {
-  const _$_getFilters();
-
-  @override
-  String toString() {
-    return 'CharacterEvent.getFilters()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_getFilters);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String? text, int? currentPage) getAllCharacters,
-    required TResult Function(String? text) getSearchedCharacters,
-    required TResult Function(String? status) getFilteredCharacters,
-    required TResult Function(String? status) setFilters,
-    required TResult Function() getFilters,
-  }) {
-    return getFilters();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? text, int? currentPage)? getAllCharacters,
-    TResult? Function(String? text)? getSearchedCharacters,
-    TResult? Function(String? status)? getFilteredCharacters,
-    TResult? Function(String? status)? setFilters,
-    TResult? Function()? getFilters,
-  }) {
-    return getFilters?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? text, int? currentPage)? getAllCharacters,
-    TResult Function(String? text)? getSearchedCharacters,
-    TResult Function(String? status)? getFilteredCharacters,
-    TResult Function(String? status)? setFilters,
-    TResult Function()? getFilters,
-    required TResult orElse(),
-  }) {
-    if (getFilters != null) {
-      return getFilters();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_getAllCharacters value) getAllCharacters,
-    required TResult Function(_getSearchedCharacters value)
-        getSearchedCharacters,
-    required TResult Function(_getFilteredCharacters value)
-        getFilteredCharacters,
-    required TResult Function(_setFilters value) setFilters,
-    required TResult Function(_getFilters value) getFilters,
-  }) {
-    return getFilters(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_getAllCharacters value)? getAllCharacters,
-    TResult? Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult? Function(_getFilteredCharacters value)? getFilteredCharacters,
-    TResult? Function(_setFilters value)? setFilters,
-    TResult? Function(_getFilters value)? getFilters,
-  }) {
-    return getFilters?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_getAllCharacters value)? getAllCharacters,
-    TResult Function(_getSearchedCharacters value)? getSearchedCharacters,
-    TResult Function(_getFilteredCharacters value)? getFilteredCharacters,
-    TResult Function(_setFilters value)? setFilters,
-    TResult Function(_getFilters value)? getFilters,
-    required TResult orElse(),
-  }) {
-    if (getFilters != null) {
-      return getFilters(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _getFilters implements CharacterEvent {
-  const factory _getFilters() = _$_getFilters;
 }

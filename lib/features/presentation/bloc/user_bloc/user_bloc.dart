@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rickmorty/features/data/models/user_model.dart';
-import 'package:rickmorty/features/domain/usecases/character_usecase.dart';
 import 'package:rickmorty/features/domain/usecases/user_usecase.dart';
 part 'user_bloc.freezed.dart';
 
@@ -21,6 +20,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         surname: event.surname,
         patronymic: event.patronymic,
         avatar: event.avatar,
+        login: event.login,
       );
     }));
   }
@@ -43,5 +43,6 @@ class UserEvent with _$UserEvent {
     String? surname,
     String? avatar,
     String? patronymic,
+    String? login,
   }) = _saveData;
 }

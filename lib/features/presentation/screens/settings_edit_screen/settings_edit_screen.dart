@@ -1,13 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rickmorty/features/presentation/bloc/user_bloc.dart/user_bloc.dart';
+
+import 'package:rickmorty/core/extension_context.dart';
+import 'package:rickmorty/features/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:rickmorty/features/presentation/screens/settings_fio_edit/settings_fio_edit.dart';
+import 'package:rickmorty/features/presentation/screens/settings_login_edit/settings_login_edit.dart';
 import 'package:rickmorty/resources/resources.dart';
 import 'package:rickmorty/service_locator.dart';
-import 'package:rickmorty/theme/colors.dart';
 import 'package:rickmorty/theme/text_styles.dart';
 
 class SettingsEditScreen extends StatefulWidget {
@@ -27,14 +30,16 @@ class _SettingsEditScreenState extends State<SettingsEditScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.colorWhite,
+      backgroundColor: context.colors.bg2,
       appBar: AppBar(
-        backgroundColor: AppColors.colorWhite,
+        backgroundColor: context.colors.bg2,
         elevation: 0,
         titleSpacing: 0,
-        title: const Text(
+        title: Text(
           'Редактировать профиль',
-          style: AppTextStyles.def20w500,
+          style: AppTextStyles.def20w500.copyWith(
+            color: context.colors.baseColor,
+          ),
         ),
         leading: IconButton(
             splashColor: Colors.transparent,
@@ -42,7 +47,10 @@ class _SettingsEditScreenState extends State<SettingsEditScreen> {
             icon: SizedBox(
               height: 24,
               width: 24,
-              child: Image.asset(AppImages.arrowB),
+              child: Image.asset(
+                AppImages.arrowB,
+                color: context.colors.baseColor,
+              ),
             ),
             onPressed: (() {
               Navigator.pop(context);
@@ -76,7 +84,7 @@ class _SettingsEditScreenState extends State<SettingsEditScreen> {
                           child: Text(
                             'Изменить фото',
                             style: AppTextStyles.def16w400.copyWith(
-                              color: AppColors.color22A2BD,
+                              color: context.colors.checkbox,
                             ),
                           ),
                           onPressed: () async {
@@ -95,7 +103,9 @@ class _SettingsEditScreenState extends State<SettingsEditScreen> {
                     ),
                     Text(
                       'Профиль'.toUpperCase(),
-                      style: AppTextStyles.def10w500,
+                      style: AppTextStyles.def10w500.copyWith(
+                        color: context.colors.greyCommonText,
+                      ),
                     ),
                     const SizedBox(
                       height: 24,
@@ -104,13 +114,29 @@ class _SettingsEditScreenState extends State<SettingsEditScreen> {
                       title: 'Изменить ФИО',
                       subtitle:
                           '${user.name} ${user.surname} ${user.patronymic}',
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) =>
+                                  const SettingEditFioScreen()),
+                            ));
+                      },
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const FioLoginWidget(
+                    FioLoginWidget(
                       title: 'Логин',
-                      subtitle: 'Rick',
+                      subtitle: user.login,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) =>
+                                  const SettingEditLoginScreen()),
+                            ));
+                      },
                     )
                   ],
                 );
@@ -128,10 +154,12 @@ class FioLoginWidget extends StatelessWidget {
     Key? key,
     required this.title,
     required this.subtitle,
+    required this.onTap,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -143,12 +171,14 @@ class FioLoginWidget extends StatelessWidget {
             Text(
               title,
               style: AppTextStyles.def16w400Black.copyWith(
-                color: AppColors.color0B1E2D.withOpacity(0.87),
+                color: context.colors.baseColor.withOpacity(0.87),
               ),
             ),
             Text(
               subtitle,
-              style: AppTextStyles.def14w400,
+              style: AppTextStyles.def14w400.copyWith(
+                color: context.colors.greyCommonText,
+              ),
             ),
           ],
         ),
@@ -157,15 +187,11 @@ class FioLoginWidget extends StatelessWidget {
             width: 24,
             height: 24,
             child: GestureDetector(
+              onTap: onTap,
               child: Image.asset(
                 AppImages.arrowF,
+                color: context.colors.baseColor,
               ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) => const SettingEditFioScreen())));
-              },
             ))
       ],
     );

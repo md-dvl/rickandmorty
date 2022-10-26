@@ -438,24 +438,24 @@ mixin _$UserEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getModel,
-    required TResult Function(
-            String? name, String? surname, String? avatar, String? patronymic)
+    required TResult Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)
         saveData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getModel,
-    TResult? Function(
-            String? name, String? surname, String? avatar, String? patronymic)?
+    TResult? Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)?
         saveData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getModel,
-    TResult Function(
-            String? name, String? surname, String? avatar, String? patronymic)?
+    TResult Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)?
         saveData,
     required TResult orElse(),
   }) =>
@@ -537,8 +537,8 @@ class _$_getModel implements _getModel {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getModel,
-    required TResult Function(
-            String? name, String? surname, String? avatar, String? patronymic)
+    required TResult Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)
         saveData,
   }) {
     return getModel();
@@ -548,8 +548,8 @@ class _$_getModel implements _getModel {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getModel,
-    TResult? Function(
-            String? name, String? surname, String? avatar, String? patronymic)?
+    TResult? Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)?
         saveData,
   }) {
     return getModel?.call();
@@ -559,8 +559,8 @@ class _$_getModel implements _getModel {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getModel,
-    TResult Function(
-            String? name, String? surname, String? avatar, String? patronymic)?
+    TResult Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)?
         saveData,
     required TResult orElse(),
   }) {
@@ -613,7 +613,11 @@ abstract class _$$_saveDataCopyWith<$Res> {
       __$$_saveDataCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? name, String? surname, String? avatar, String? patronymic});
+      {String? name,
+      String? surname,
+      String? avatar,
+      String? patronymic,
+      String? login});
 }
 
 /// @nodoc
@@ -631,6 +635,7 @@ class __$$_saveDataCopyWithImpl<$Res>
     Object? surname = freezed,
     Object? avatar = freezed,
     Object? patronymic = freezed,
+    Object? login = freezed,
   }) {
     return _then(_$_saveData(
       name: freezed == name
@@ -649,6 +654,10 @@ class __$$_saveDataCopyWithImpl<$Res>
           ? _value.patronymic
           : patronymic // ignore: cast_nullable_to_non_nullable
               as String?,
+      login: freezed == login
+          ? _value.login
+          : login // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -656,7 +665,8 @@ class __$$_saveDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_saveData implements _saveData {
-  const _$_saveData({this.name, this.surname, this.avatar, this.patronymic});
+  const _$_saveData(
+      {this.name, this.surname, this.avatar, this.patronymic, this.login});
 
   @override
   final String? name;
@@ -666,10 +676,12 @@ class _$_saveData implements _saveData {
   final String? avatar;
   @override
   final String? patronymic;
+  @override
+  final String? login;
 
   @override
   String toString() {
-    return 'UserEvent.saveData(name: $name, surname: $surname, avatar: $avatar, patronymic: $patronymic)';
+    return 'UserEvent.saveData(name: $name, surname: $surname, avatar: $avatar, patronymic: $patronymic, login: $login)';
   }
 
   @override
@@ -681,12 +693,13 @@ class _$_saveData implements _saveData {
             (identical(other.surname, surname) || other.surname == surname) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.patronymic, patronymic) ||
-                other.patronymic == patronymic));
+                other.patronymic == patronymic) &&
+            (identical(other.login, login) || other.login == login));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, surname, avatar, patronymic);
+      Object.hash(runtimeType, name, surname, avatar, patronymic, login);
 
   @JsonKey(ignore: true)
   @override
@@ -698,35 +711,35 @@ class _$_saveData implements _saveData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getModel,
-    required TResult Function(
-            String? name, String? surname, String? avatar, String? patronymic)
+    required TResult Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)
         saveData,
   }) {
-    return saveData(name, surname, avatar, patronymic);
+    return saveData(name, surname, avatar, patronymic, login);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getModel,
-    TResult? Function(
-            String? name, String? surname, String? avatar, String? patronymic)?
+    TResult? Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)?
         saveData,
   }) {
-    return saveData?.call(name, surname, avatar, patronymic);
+    return saveData?.call(name, surname, avatar, patronymic, login);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getModel,
-    TResult Function(
-            String? name, String? surname, String? avatar, String? patronymic)?
+    TResult Function(String? name, String? surname, String? avatar,
+            String? patronymic, String? login)?
         saveData,
     required TResult orElse(),
   }) {
     if (saveData != null) {
-      return saveData(name, surname, avatar, patronymic);
+      return saveData(name, surname, avatar, patronymic, login);
     }
     return orElse();
   }
@@ -768,12 +781,14 @@ abstract class _saveData implements UserEvent {
       {final String? name,
       final String? surname,
       final String? avatar,
-      final String? patronymic}) = _$_saveData;
+      final String? patronymic,
+      final String? login}) = _$_saveData;
 
   String? get name;
   String? get surname;
   String? get avatar;
   String? get patronymic;
+  String? get login;
   @JsonKey(ignore: true)
   _$$_saveDataCopyWith<_$_saveData> get copyWith =>
       throw _privateConstructorUsedError;

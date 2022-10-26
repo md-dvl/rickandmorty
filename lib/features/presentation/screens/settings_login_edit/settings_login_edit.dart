@@ -2,31 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rickmorty/core/extension_context.dart';
 import 'package:rickmorty/features/presentation/bloc/user_bloc/user_bloc.dart';
+import 'package:rickmorty/features/presentation/screens/settings_edit_screen/settings_edit_screen.dart';
 import 'package:rickmorty/features/presentation/widgets/custom_textfield.dart';
 
 import 'package:rickmorty/resources/resources.dart';
 import 'package:rickmorty/service_locator.dart';
 import 'package:rickmorty/theme/text_styles.dart';
 
-class SettingEditFioScreen extends StatefulWidget {
-  const SettingEditFioScreen({Key? key}) : super(key: key);
+class SettingEditLoginScreen extends StatefulWidget {
+  const SettingEditLoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<SettingEditFioScreen> createState() => _SettingEditFioScreenState();
+  State<SettingEditLoginScreen> createState() => _SettingEditLoginScreenState();
 }
 
-class _SettingEditFioScreenState extends State<SettingEditFioScreen> {
-  final nameController = TextEditingController();
-  final surnameController = TextEditingController();
-  final patronymicController = TextEditingController();
+class _SettingEditLoginScreenState extends State<SettingEditLoginScreen> {
+  final loginController = TextEditingController();
 
   final _bloc = sl<UserBloc>();
 
   @override
   void dispose() {
-    nameController.dispose();
-    surnameController.dispose();
-    patronymicController.dispose();
+    loginController.dispose();
     super.dispose();
   }
 
@@ -39,7 +36,7 @@ class _SettingEditFioScreenState extends State<SettingEditFioScreen> {
         elevation: 0,
         titleSpacing: 0,
         title: Text(
-          'Изменить ФИО',
+          'Изменить логин',
           style: AppTextStyles.def20w500.copyWith(
             color: context.colors.baseColor,
           ),
@@ -69,16 +66,8 @@ class _SettingEditFioScreenState extends State<SettingEditFioScreen> {
             height: 18,
           ),
           CustomTextField(
-            text: 'Имя',
-            controller: nameController,
-          ),
-          CustomTextField(
-            text: 'Фамилия',
-            controller: surnameController,
-          ),
-          CustomTextField(
-            text: 'Отчество',
-            controller: patronymicController,
+            text: 'Логин',
+            controller: loginController,
           ),
           const Spacer(),
           SizedBox(
@@ -94,10 +83,18 @@ class _SettingEditFioScreenState extends State<SettingEditFioScreen> {
                 ),
                 onPressed: () {
                   _bloc.add(UserEvent.saveData(
-                    name: nameController.text,
-                    surname: surnameController.text,
-                    patronymic: patronymicController.text,
+                    login: loginController.text,
                   ));
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => const SettingsEditScreen()),
+                        ),
+                        (route) => false);
+                  }
                 },
                 child: Text(
                   'Сохранить',
