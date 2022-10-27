@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rickmorty/core/extension_context.dart';
 import 'package:rickmorty/features/presentation/screens/filters_screen/filters_screen.dart';
 import 'package:rickmorty/features/presentation/screens/settings_edit_screen/settings_edit_screen.dart';
-import 'package:rickmorty/features/presentation/screens/settings_login_edit/settings_login_edit.dart';
 import 'package:rickmorty/resources/resources.dart';
 import 'package:rickmorty/features/presentation/screens/characters_screen/characters_screen.dart';
-import 'package:rickmorty/features/presentation/screens/settings_fio_edit/settings_fio_edit.dart';
 import 'package:rickmorty/features/presentation/screens/settings_screen/settings_screen.dart';
 
 class MainScreen extends StatefulWidget {

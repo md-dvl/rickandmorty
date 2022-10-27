@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rickmorty/core/extension_context.dart';
-import 'package:rickmorty/theme/colors.dart';
 
 class CustomDivider extends StatelessWidget {
   const CustomDivider({

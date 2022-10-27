@@ -34,18 +34,26 @@ class _UserInfo extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              '${user.name} ${user.surname} ${user.patronymic}',
-                              style: AppTextStyles.def16w400Black.copyWith(
-                                color: context.colors.baseColor,
-                              )),
+                          SizedBox(
+                            width: 239.w,
+                            child: Text(
+                                '${user.name} ${user.surname} ${user.patronymic}',
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyles.def16w400Black.copyWith(
+                                  color: context.colors.baseColor,
+                                )),
+                          ),
                           SizedBox(
                             height: 4.h,
                           ),
-                          Text(
-                            user.login,
-                            style: AppTextStyles.def14w400.copyWith(
-                              color: context.colors.greyCommonText,
+                          SizedBox(
+                            width: 239.w,
+                            child: Text(
+                              user.login,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.def14w400.copyWith(
+                                color: context.colors.greyCommonText,
+                              ),
                             ),
                           ),
                         ],
