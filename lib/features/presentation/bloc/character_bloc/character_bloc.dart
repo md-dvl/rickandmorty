@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rickmorty/features/data/models/character_model.dart';
@@ -14,7 +12,6 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
     required this.usecase,
   }) : super(const CharacterState.initial()) {
     on<_getAllCharacters>(((event, emit) async {
-      // emit(const CharacterState.loading());
       final result = await usecase.getAllCharacters(
         currentPage: event.currentPage,
         text: event.text,

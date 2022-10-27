@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rickmorty/core/extension_context.dart';
-
 import 'package:rickmorty/features/presentation/bloc/character_bloc/character_bloc.dart';
 import 'package:rickmorty/features/presentation/screens/main_screen/main_screen.dart';
 import 'package:rickmorty/features/presentation/widgets/custom_divider.dart';
 import 'package:rickmorty/resources/resources.dart';
 import 'package:rickmorty/service_locator.dart';
 import 'package:rickmorty/theme/text_styles.dart';
+part 'widgets/app_bar.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({Key? key}) : super(key: key);
@@ -17,7 +18,6 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> {
   final _bloc = sl<CharacterBloc>();
-  bool isActive = false;
   String status = '';
   String gender = '';
 
@@ -25,154 +25,134 @@ class _FiltersScreenState extends State<FiltersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colors.bg2,
-      appBar: AppBar(
-        backgroundColor: context.colors.bg2,
-        elevation: 0,
-        titleSpacing: 0,
-        title: Text(
-          'Фильтры',
-          style: AppTextStyles.def20w500.copyWith(
-            color: context.colors.baseColor,
+      appBar: _AppBar(bloc: _bloc),
+      body: _buildBody(context),
+    );
+  }
+
+  Padding _buildBody(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 24.h,
           ),
-        ),
-        leading: IconButton(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            icon: SizedBox(
-              height: 24,
-              width: 24,
-              child: Image.asset(
-                AppImages.arrowB,
-                color: context.colors.baseColor,
-              ),
+          Text(
+            'СОРТИРОВАТЬ',
+            style: AppTextStyles.def10w500.copyWith(
+              color: context.colors.elementsNotFound,
             ),
-            onPressed: (() {
-              _bloc.add(CharacterEvent.setFilters(
-                status: status,
-                gender: gender,
-              ));
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: ((context) => const MainScreen())),
-                  (route) => false);
-            })),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 24,
+          ),
+          SizedBox(
+            height: 30.h,
+          ),
+          _alphabeticRow(context),
+          CustomDivider(
+            vertPadding: 36.h,
+            thickness: 2.h,
+          ),
+          Text(
+            'СТАТУС',
+            style: AppTextStyles.def10w500.copyWith(
+              color: context.colors.elementsNotFound,
             ),
-            Text(
-              'СОРТИРОВАТЬ',
-              style: AppTextStyles.def10w500.copyWith(
-                color: context.colors.elementsNotFound,
-              ),
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+          _checkboxRowStatus(
+            checkboxText: "Живой",
+            statusText: 'alive',
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+          _checkboxRowStatus(
+            checkboxText: "Мертвый",
+            statusText: 'dead',
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+          _checkboxRowStatus(
+            checkboxText: "Неизвестно",
+            statusText: 'unknown',
+          ),
+          CustomDivider(vertPadding: 36.h, thickness: 2.h),
+          Text(
+            'ПОЛ',
+            style: AppTextStyles.def10w500.copyWith(
+              color: context.colors.elementsNotFound,
             ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: Text(
-                  'По алфавиту',
-                  style: AppTextStyles.def16w400Black.copyWith(
-                    color: context.colors.baseColor,
-                  ),
-                )),
-                SizedBox(
-                  height: 34,
-                  width: 34,
-                  child: Image.asset(
-                    AppImages.sort1,
-                    color: context.colors.checkbox,
-                  ),
-                ),
-                SizedBox(
-                  width: 24,
-                ),
-                SizedBox(
-                  height: 34,
-                  width: 34,
-                  child: Image.asset(
-                    AppImages.sort2,
-                    color: context.colors.elementsNotFound,
-                  ),
-                )
-              ],
-            ),
-            const CustomDivider(vertPadding: 36, thickness: 2),
-            Text(
-              'СТАТУС',
-              style: AppTextStyles.def10w500.copyWith(
-                color: context.colors.elementsNotFound,
-              ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            checkboxRowStatus(
-              checkboxText: "Живой",
-              statusText: 'alive',
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            checkboxRowStatus(
-              checkboxText: "Мертвый",
-              statusText: 'dead',
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            checkboxRowStatus(
-              checkboxText: "Неизвестно",
-              statusText: 'unknown',
-            ),
-            const CustomDivider(vertPadding: 36, thickness: 2),
-            Text(
-              'ПОЛ',
-              style: AppTextStyles.def10w500.copyWith(
-                color: context.colors.elementsNotFound,
-              ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            checkboxRowGender(
-              checkboxText: 'Мужской',
-              genderText: 'male',
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            checkboxRowGender(
-              checkboxText: 'Женский',
-              genderText: 'female',
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            checkboxRowGender(
-              checkboxText: 'Бесполый',
-              genderText: 'genderless',
-            ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+          _checkboxRowGender(
+            checkboxText: 'Мужской',
+            genderText: 'male',
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+          _checkboxRowGender(
+            checkboxText: 'Женский',
+            genderText: 'female',
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+          _checkboxRowGender(
+            checkboxText: 'Бесполый',
+            genderText: 'genderless',
+          ),
+        ],
       ),
     );
   }
 
-  Row checkboxRowStatus(
+  Row _alphabeticRow(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+            child: Text(
+          'По алфавиту',
+          style: AppTextStyles.def16w400Black.copyWith(
+            color: context.colors.baseColor,
+          ),
+        )),
+        SizedBox(
+          height: 34.h,
+          width: 34.w,
+          child: Image.asset(
+            AppImages.sort1,
+            color: context.colors.checkbox,
+          ),
+        ),
+        SizedBox(
+          width: 24.w,
+        ),
+        SizedBox(
+          height: 34.h,
+          width: 34.w,
+          child: Image.asset(
+            AppImages.sort2,
+            color: context.colors.elementsNotFound,
+          ),
+        )
+      ],
+    );
+  }
+
+  Row _checkboxRowStatus(
       {required String checkboxText, required String statusText}) {
     return Row(
       children: [
         SizedBox(
-          height: 24,
-          width: 24,
+          height: 24.h,
+          width: 24.w,
           child: Checkbox(
             activeColor: context.colors.checkbox,
             side: BorderSide(
@@ -182,21 +162,19 @@ class _FiltersScreenState extends State<FiltersScreen> {
             value: _bloc.usecase.status == statusText ? true : false,
             onChanged: (value) {
               setState(() {
-                // isActive = value!;
                 _bloc.usecase.status == statusText
                     ? status = ''
                     : status = statusText;
                 _bloc.add(CharacterEvent.setFilters(
                   status: status,
-                  gender: gender,
+                  gender: _bloc.usecase.gender,
                 ));
               });
-              // isActive ? status = 'alive' : status = '';
             },
           ),
         ),
         SizedBox(
-          width: 16,
+          width: 16.w,
         ),
         Text(
           checkboxText,
@@ -208,13 +186,13 @@ class _FiltersScreenState extends State<FiltersScreen> {
     );
   }
 
-  Row checkboxRowGender(
+  Row _checkboxRowGender(
       {required String checkboxText, required String genderText}) {
     return Row(
       children: [
         SizedBox(
-          height: 24,
-          width: 24,
+          height: 24.h,
+          width: 24.w,
           child: Checkbox(
             activeColor: context.colors.checkbox,
             side: BorderSide(
@@ -229,14 +207,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     : gender = genderText;
                 _bloc.add(CharacterEvent.setFilters(
                   gender: gender,
-                  status: status,
+                  status: _bloc.usecase.status,
                 ));
               });
             },
           ),
         ),
         SizedBox(
-          width: 16,
+          width: 16.w,
         ),
         Text(
           checkboxText,

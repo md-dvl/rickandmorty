@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:rickmorty/features/domain/repositories/base_repo.dart';
 
 class CharacterCase {

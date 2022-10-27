@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
@@ -6,7 +7,6 @@ abstract class AppColors {
   final Color searchBar;
   final Color searchBarText;
   final Color greyCommonText;
-  final Color statusGreen;
   final Color statusGreenGrid;
   final Color statusRed;
   final Color baseColor;
@@ -16,6 +16,10 @@ abstract class AppColors {
   final Color checkbox;
   final Color white;
   final Color elementsNotFound;
+  final Color cancelTheme;
+  final Color iconsBoth;
+  final Color lineSearchBar;
+  final LinearGradient gradient;
 
   AppColors({
     required this.bg,
@@ -23,7 +27,6 @@ abstract class AppColors {
     required this.searchBar,
     required this.searchBarText,
     required this.greyCommonText,
-    required this.statusGreen,
     required this.statusGreenGrid,
     required this.statusRed,
     required this.baseColor,
@@ -33,6 +36,10 @@ abstract class AppColors {
     required this.checkbox,
     required this.white,
     required this.elementsNotFound,
+    required this.cancelTheme,
+    required this.iconsBoth,
+    required this.lineSearchBar,
+    required this.gradient,
   });
 }
 
@@ -51,9 +58,6 @@ class LightColors implements AppColors {
 
   @override
   Color get greyCommonText => const Color(0xff828282);
-
-  @override
-  Color get statusGreen => const Color(0xff27AE60);
 
   @override
   Color get baseColor => const Color(0xff0B1E2D);
@@ -81,6 +85,28 @@ class LightColors implements AppColors {
 
   @override
   Color get elementsNotFound => const Color(0xff828282);
+
+  @override
+  LinearGradient get gradient => LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Colors.black.withOpacity(0.5),
+          const Color(0xFF0B1E2D).withOpacity(0.39),
+          const Color(0xFF0B1E2D).withOpacity(0),
+          Colors.white.withOpacity(.01),
+        ],
+        stops: const [0, 0.37, 0.68, 1],
+      );
+
+  @override
+  Color get cancelTheme => const Color(0xff4F4F4F);
+
+  @override
+  Color get iconsBoth => const Color(0xff5B6975);
+
+  @override
+  Color get lineSearchBar => const Color(0xffBDBDBD);
 }
 
 class DarkColors implements AppColors {
@@ -98,9 +124,6 @@ class DarkColors implements AppColors {
 
   @override
   Color get greyCommonText => const Color(0xff6E798C);
-
-  @override
-  Color get statusGreen => const Color(0xff27AE60);
 
   @override
   Color get baseColor => Colors.white;
@@ -128,4 +151,29 @@ class DarkColors implements AppColors {
 
   @override
   Color get elementsNotFound => const Color(0xff5B6975);
+
+  @override
+  LinearGradient get gradient => LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Colors.black.withOpacity(0.65),
+          const Color(0xFF0B1E2D).withOpacity(0.65),
+          const Color(0xFF0B1E2D).withOpacity(0.65),
+          const Color(0xFF0B1E2D).withOpacity(0.65),
+        ],
+        stops: const [0, 0.37, 0.68, 1],
+      );
+
+  @override
+  Color get cancelTheme => Colors.white;
+
+  @override
+  Color get iconsBoth => const Color(0xff5B6975);
+
+  @override
+  @override
+  Color get lineSearchBar => Colors.white.withOpacity(
+        0.1,
+      );
 }

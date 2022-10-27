@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:rickmorty/core/app_error.dart';
 import 'package:rickmorty/features/data/models/character_model.dart';

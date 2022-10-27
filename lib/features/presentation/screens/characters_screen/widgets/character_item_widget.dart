@@ -25,15 +25,15 @@ class _CharacterItemWidget extends StatelessWidget {
             imageUrl: character.image ??
                 'https://rickandmortyapi.com/api/character/avatar/7.jpeg',
             placeholder: (context, url) => SizedBox(
-                height: 74,
-                width: 74,
-                child: Padding(
-                  padding: const EdgeInsets.all(22.0),
-                  child: const CircularProgressIndicator(),
+                height: 74.h,
+                width: 74.w,
+                child: const Padding(
+                  padding: EdgeInsets.all(22.0),
+                  child: CircularProgressIndicator(),
                 )),
             imageBuilder: (context, imageProvider) => Container(
-              height: 74,
-              width: 74,
+              height: 74.h,
+              width: 74.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 image: DecorationImage(
@@ -43,8 +43,8 @@ class _CharacterItemWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            width: 18,
+          SizedBox(
+            width: 18.w,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,7 @@ class _CharacterItemWidget extends StatelessWidget {
                           ? LifeStatus.dead
                           : LifeStatus.unknown),
               SizedBox(
-                width: 250,
+                width: 250.w,
                 child: Text(
                   character.name ?? 'Rick Sanchez',
                   maxLines: 1,

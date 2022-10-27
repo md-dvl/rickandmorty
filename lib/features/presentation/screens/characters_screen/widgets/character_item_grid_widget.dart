@@ -25,15 +25,15 @@ class _CharacterItemGridWidget extends StatelessWidget {
             imageUrl: character.image ??
                 'https://rickandmortyapi.com/api/character/avatar/7.jpeg',
             placeholder: (context, url) => SizedBox(
-                height: 120,
-                width: 120,
-                child: Padding(
-                  padding: const EdgeInsets.all(36.0),
-                  child: const CircularProgressIndicator(),
+                height: 120.h,
+                width: 120.w,
+                child: const Padding(
+                  padding: EdgeInsets.all(36.0),
+                  child: CircularProgressIndicator(),
                 )),
             imageBuilder: (context, imageProvider) => Container(
-              height: 120,
-              width: 120,
+              height: 120.h,
+              width: 120.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 image: DecorationImage(
@@ -43,8 +43,8 @@ class _CharacterItemGridWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 18,
+          SizedBox(
+            height: 18.h,
           ),
           CharacterStatus(
               lifeStatus: character.status == 'Alive'

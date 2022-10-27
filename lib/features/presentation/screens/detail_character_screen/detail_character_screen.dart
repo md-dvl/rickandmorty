@@ -1,16 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rickmorty/core/extension_context.dart';
-
 import 'package:rickmorty/features/data/models/character_model.dart';
 import 'package:rickmorty/features/presentation/screens/characters_screen/widgets/character_status.dart';
 import 'package:rickmorty/resources/resources.dart';
-import 'package:rickmorty/theme/colors.dart';
 import 'package:rickmorty/theme/text_styles.dart';
-
-double width = 0;
-double height = 0;
 
 class DetailCharacterScreen extends StatelessWidget {
   const DetailCharacterScreen({
@@ -22,11 +17,21 @@ class DetailCharacterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: context.colors.bg2,
       body: _buildWithListViewBuilder(),
+    );
+  }
+
+  Widget _buildWithListViewBuilder() {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        if (index == 0) {
+          return _buildBody(context);
+        }
+        return _buildItem(context);
+      },
+      itemCount: 4,
     );
   }
 
@@ -37,6 +42,7 @@ class DetailCharacterScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text('${character.name}',
+              textAlign: TextAlign.center,
               style: AppTextStyles.def34w400.copyWith(
                 color: context.colors.baseColor,
               )),
@@ -67,53 +73,55 @@ class DetailCharacterScreen extends StatelessWidget {
                 children: [
                   _buildTextContent(
                       context: context,
-                      title: "Gender",
+                      title: "Пол",
                       content: "${character.gender}"),
                   _buildTextContent(
                       context: context,
-                      title: 'Species',
+                      title: 'Раса',
                       content: '${character.species}')
                 ],
               ),
               SizedBox(height: 20.h),
               _buildColumnVector(
                 context: context,
-                title: 'Place of Birth',
+                title: 'Место рождения',
                 content: '${character.origin?.name}',
               ),
               SizedBox(height: 20.h),
               _buildColumnVector(
                 context: context,
-                title: 'Location',
+                title: 'Местоположение',
                 content: '${character.location?.name}',
               ),
             ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 36.0),
+          padding: EdgeInsets.symmetric(vertical: 36.h),
           child: Divider(
             thickness: 2,
             color: context.colors.searchBar,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Episodes',
+                    'Эпизоды',
                     style: AppTextStyles.def20w500.copyWith(
                       color: context.colors.baseColor,
                     ),
                   ),
-                  Text(' All episodes',
-                      style: AppTextStyles.def12w400.copyWith(
-                        color: context.colors.greyCommonText,
-                      ))
+                  Text(
+                    ' Все эпизоды',
+                    style: AppTextStyles.def12w400.copyWith(
+                      color: context.colors.elementsNotFound,
+                    ),
+                  )
                 ],
               ),
             ],
@@ -124,21 +132,9 @@ class DetailCharacterScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWithListViewBuilder() {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        if (index == 0) {
-          return _buildBody(context);
-        }
-        return _buildItem(context);
-      },
-      itemCount: 4,
-    );
-  }
-
   Widget _buildItem(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Row(
         children: [
           SizedBox(
@@ -162,31 +158,36 @@ class DetailCharacterScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Episode'.toUpperCase(),
-                  style: AppTextStyles.def10w500detailed.copyWith(
-                    color: context.colors.navBar.withOpacity(0.87),
-                  )),
               Text(
-                'Pilot',
+                'Серия 1'.toUpperCase(),
+                style: AppTextStyles.def10w500detailed.copyWith(
+                  color: context.colors.checkbox.withOpacity(0.87),
+                ),
+              ),
+              Text(
+                'Пилот',
                 style: AppTextStyles.def16w500.copyWith(
                   color: context.colors.baseColor,
                 ),
               ),
-              Text('13 dec',
-                  style: AppTextStyles.def14w400detailed.copyWith(
-                    fontSize: 12.h,
-                    color: context.colors.episodeDate.withOpacity(0.6),
-                  )),
+              Text(
+                '2 декабря 2013',
+                style: AppTextStyles.def14w400detailed.copyWith(
+                  fontSize: 12.h,
+                  color: context.colors.episodeDate.withOpacity(0.6),
+                ),
+              ),
             ],
           ),
           const Spacer(),
           Image.asset(
             'assets/images/vector.png',
             scale: 4,
+            color: context.colors.baseColor,
           ),
           SizedBox(
             width: 9.h,
-          )
+          ),
         ],
       ),
     );
@@ -200,10 +201,12 @@ class DetailCharacterScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: AppTextStyles.def12w400.copyWith(
-              color: context.colors.greyCommonText,
-            )),
+        Text(
+          title,
+          style: AppTextStyles.def12w400.copyWith(
+            color: context.colors.elementsNotFound,
+          ),
+        ),
         Row(
           children: [
             Text(content,
@@ -214,12 +217,13 @@ class DetailCharacterScreen extends StatelessWidget {
             Image.asset(
               'assets/images/vector.png',
               scale: 4,
+              color: context.colors.baseColor,
             ),
             SizedBox(
               width: 10.w,
             ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -236,7 +240,7 @@ class DetailCharacterScreen extends StatelessWidget {
           Text(
             title,
             style: AppTextStyles.def12w400.copyWith(
-              color: context.colors.greyCommonText,
+              color: context.colors.elementsNotFound,
             ),
           ),
           SizedBox(
@@ -280,38 +284,29 @@ class DetailCharacterScreen extends StatelessWidget {
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.5),
-                            const Color(0xff0b1e2d63).withOpacity(0.39),
-                            const Color(0xff0b1e2d63).withOpacity(0),
-                            Colors.white.withOpacity(.01),
-                          ],
-                          stops: const [0, 0.37, 0.68, 1],
-                        ),
+                        gradient: context.colors.gradient,
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(
-                      top: 58.h,
-                      left: 24.w,
-                    ),
-                    child: GestureDetector(
-                      onTap: (() {
-                        Navigator.pop(context);
-                      }),
-                      child: SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: Image.asset(
-                          AppImages.arrowBDetailscr,
-                        ),
+                  padding: EdgeInsets.only(
+                    top: 58.h,
+                    left: 24.w,
+                  ),
+                  child: GestureDetector(
+                    onTap: (() {
+                      Navigator.pop(context);
+                    }),
+                    child: SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: Image.asset(
+                        AppImages.arrowBDetailscr,
                       ),
-                    ))
+                    ),
+                  ),
+                )
               ],
             ),
             SizedBox(height: 73.h),
@@ -343,13 +338,8 @@ class DetailCharacterScreen extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
-}
-
-extension DSize on num {
-  double get w => this * width / 375;
-  double get h => this * height / 812;
 }

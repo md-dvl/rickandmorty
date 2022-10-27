@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rickmorty/core/extension_context.dart';
 import 'package:rickmorty/features/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:rickmorty/features/presentation/widgets/custom_textfield.dart';
-
 import 'package:rickmorty/resources/resources.dart';
 import 'package:rickmorty/service_locator.dart';
 import 'package:rickmorty/theme/text_styles.dart';
+part 'widgets/app_bar.dart';
 
 class SettingEditFioScreen extends StatefulWidget {
   const SettingEditFioScreen({Key? key}) : super(key: key);
@@ -34,39 +35,22 @@ class _SettingEditFioScreenState extends State<SettingEditFioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colors.bg2,
-      appBar: AppBar(
-        backgroundColor: context.colors.bg2,
-        elevation: 0,
-        titleSpacing: 0,
-        title: Text(
-          'Изменить ФИО',
-          style: AppTextStyles.def20w500.copyWith(
-            color: context.colors.baseColor,
-          ),
-        ),
-        leading: IconButton(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            icon: SizedBox(
-              height: 24,
-              width: 24,
-              child: Image.asset(
-                AppImages.arrowB,
-                color: context.colors.baseColor,
-              ),
-            ),
-            onPressed: (() {
-              Navigator.pop(context);
-            })),
+      appBar: const _AppBar(),
+      body: _buildBody(context),
+    );
+  }
+
+  Padding _buildBody(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 22.h,
+        horizontal: 28.w,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 22,
-          horizontal: 28,
-        ),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(
-            height: 18,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 18.h,
           ),
           CustomTextField(
             text: 'Имя',
@@ -81,33 +65,42 @@ class _SettingEditFioScreenState extends State<SettingEditFioScreen> {
             controller: patronymicController,
           ),
           const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: BlocProvider.value(
-              value: _bloc,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: context.colors.checkbox,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  padding: const EdgeInsets.all(12),
-                ),
-                onPressed: () {
-                  _bloc.add(UserEvent.saveData(
-                    name: nameController.text,
-                    surname: surnameController.text,
-                    patronymic: patronymicController.text,
-                  ));
-                },
-                child: Text(
-                  'Сохранить',
-                  style: AppTextStyles.def16w400Black
-                      .copyWith(color: context.colors.white),
-                ),
-              ),
-            ),
-          )
-        ]),
+          _appElevatedButton(context),
+        ],
+      ),
+    );
+  }
+
+  SizedBox _appElevatedButton(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: BlocProvider.value(
+        value: _bloc,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: context.colors.checkbox,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: const EdgeInsets.all(12),
+          ),
+          onPressed: () {
+            _bloc.add(UserEvent.saveData(
+              name: nameController.text,
+              surname: surnameController.text,
+              patronymic: patronymicController.text,
+            ));
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+              Navigator.pop(context);
+            }
+          },
+          child: Text(
+            'Сохранить',
+            style: AppTextStyles.def16w400Black
+                .copyWith(color: context.colors.white),
+          ),
+        ),
       ),
     );
   }

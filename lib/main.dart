@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:rickmorty/features/presentation/screens/characters_screen/characters_screen.dart';
 import 'package:rickmorty/features/presentation/screens/main_screen/main_screen.dart';
 import 'package:rickmorty/service_locator.dart' as di;
 import 'package:rickmorty/theme/theme_provider.dart';
 
 void main() async {
   await di.init();
-  runApp(const MyApp());
+  runApp(ScreenUtilInit(
+    designSize: const Size(375, 812),
+    builder: ((context, child) => const MyApp()),
+  ));
 }
 
 class MyApp extends StatelessWidget {
