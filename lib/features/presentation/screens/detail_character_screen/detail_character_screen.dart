@@ -306,7 +306,7 @@ class DetailCharacterScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
             SizedBox(height: 73.h),
